@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { EmployeeApi } from '../services/employee-api';
+import { Employee } from '../models/employee';
 
 @Component({
   selector: 'app-employees',
@@ -11,19 +12,25 @@ import { EmployeeApi } from '../services/employee-api';
 export class Employees {
   private employeeApi = inject(EmployeeApi)
 
-  employees: any = [];
+  employees: Employee[] = [];
+  responseMessage = '';
+  responseSuccess = false;
 
   getEmployees(){
 
     console.log("getting employees...")
 
     this.employeeApi.getEmployees().subscribe({
-      next: (employees) => {
-        this.employees = employees.data;
-        console.log(this.employees);
+      next: (response) => {
+        this.responseSuccess = response.success;
+        this.responseMessage = response.message;
+        this.employees = response.data;
+        console.log(response);
       },
-      error: () => {
-        console.log("failed...");
+      error: (error) => {
+        this.responseSuccess = error.success;
+        this.responseMessage = error.message;
+        console.log(error);
       }
     })
   }

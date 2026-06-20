@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { Service, inject  } from '@angular/core';
+import { Employee } from '../models/employee';
 
-interface EmployeeResponse  {
-    data: any[];
+interface ApiResponse<T>  {
+    success: boolean;
+    message: string;
+    data: T;
 }
 
 @Service()
@@ -13,6 +16,11 @@ export class EmployeeApi {
 
     // get all employees
     getEmployees() {
-        return this.http.get<EmployeeResponse>(this.apiUrl);
+        return this.http.get<ApiResponse<Employee[]>>(this.apiUrl);
+    }
+
+    // get employee by id
+    getEmployeeById(id: number) {
+        return this.http.get<ApiResponse<Employee>>(`${this.apiUrl}/${id}`);
     }
 }

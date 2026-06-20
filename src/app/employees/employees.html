@@ -1,9 +1,14 @@
 <button (click)="getEmployees()">get employees</button>
 
-
 <ul>
     @for (employee of employees; track employee.id) {
-        <li>{{employee.firstName}}</li>
+        <li>
+            <strong>{{ employee.firstName }} {{ employee.lastName }}</strong>
+            <div>Id: {{ employee.id }}</div>
+            <div>Department Id: {{ employee.departmentId ?? 'N/A' }}</div>
+            <div>Department: {{ employee.department?.name ?? 'N/A' }}</div>
+            <div>Salary: {{ employee.salary }}</div>
+        </li>
     } @empty {
         <li>no employees</li>
     }
