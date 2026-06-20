@@ -1,1 +1,10 @@
 <button (click)="getEmployees()">get employees</button>
+
+
+<ul>
+    @for (employee of employees; track employee.id) {
+        <li>{{employee.firstName}}</li>
+    } @empty {
+        <li>no employees</li>
+    }
+</ul>
