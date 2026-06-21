@@ -1,15 +1,33 @@
 <button (click)="getEmployees()">get employees</button>
 
-<ul>
-    @for (employee of employees; track employee.id) {
-        <li>
+<div>
+    <div>
+        <ul>
+            @for (employee of employees; track employee.id) {
+                <li>
+                    <strong>{{ employee.firstName }} {{ employee.lastName }}</strong>
+                    <div>Id: {{ employee.id }}</div>
+                    <div>Department Id: {{ employee.departmentId ?? 'N/A' }}</div>
+                    <div>Department: {{ employee.department?.name ?? 'N/A' }}</div>
+                    <div>Salary: {{ employee.salary }}</div>
+                </li>
+            } @empty {
+                <li>no employees</li>
+            }
+        </ul>
+    </div>
+    <div>
+        <p>enter employee id</p>
+        <input #employeeIdInput type="number">
+        <button (click)="getEmployeeById(employeeIdInput.valueAsNumber)"> find employee</button>
+        @if (employee) {
             <strong>{{ employee.firstName }} {{ employee.lastName }}</strong>
             <div>Id: {{ employee.id }}</div>
             <div>Department Id: {{ employee.departmentId ?? 'N/A' }}</div>
             <div>Department: {{ employee.department?.name ?? 'N/A' }}</div>
             <div>Salary: {{ employee.salary }}</div>
-        </li>
-    } @empty {
-        <li>no employees</li>
-    }
-</ul>
+        } @else {
+            
+        }
+    </div>
+</div>

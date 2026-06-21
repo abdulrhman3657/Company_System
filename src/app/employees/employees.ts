@@ -13,8 +13,10 @@ export class Employees {
   private employeeApi = inject(EmployeeApi)
 
   employees: Employee[] = [];
+  employee: Employee | null = null;
   responseMessage = '';
   responseSuccess = false;
+  employeeId: number | null = null;
 
   getEmployees(){
 
@@ -22,16 +24,37 @@ export class Employees {
 
     this.employeeApi.getEmployees().subscribe({
       next: (response) => {
+        // responseSuccess is true
         this.responseSuccess = response.success;
         this.responseMessage = response.message;
         this.employees = response.data;
         console.log(response);
       },
       error: (error) => {
-        this.responseSuccess = error.success;
-        this.responseMessage = error.message;
+        // responseSuccess is false
+        this.responseSuccess = error.error.success;
+        this.responseMessage = error.error.message;
         console.log(error);
       }
     })
+  }
+
+  getEmployeeById(id: number){
+
+    this.employeeId = id;
+
+    this.employeeApi.getEmployeeById(id).subscribe({
+      next: (response) => {
+        this.responseSuccess = response.success;
+        this.responseMessage = response.message;
+        this.employee = response.data;
+        console.log(response);
+      }, error: (error) => {
+        this.responseSuccess = error.error.success;
+        this.responseMessage = error.error.message;
+        console.log(error);
+      }
+    })
+
   }
 }
