@@ -1,7 +1,7 @@
 import { Employee } from "./employee";
 
 export interface Department {
-    id: number;
+    id?: number;
     name: string;
     employees?: Employee | null;
 }

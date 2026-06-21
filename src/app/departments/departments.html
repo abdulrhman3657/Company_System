@@ -1,15 +1,46 @@
 <button (click)="getDepartments()">get departments</button>
 
 <div>
-    <ul>
-        @for (department of departments; track department.id) {
-            <li>
-                <strong> {{ department.name }}</strong>
-                <div>Id: {{ department.id }}</div>
-                <div>Employees: {{ department.employees ?? 'N/A' }}</div>
-            </li>
-        } @empty {
-            <li>no departments</li>
+    <div>
+        <ul>
+            @for (department of departments; track department.id) {
+                <li>
+                    <strong>{{ department.name }}</strong>
+                    <div>Id: {{ department.id }}</div>
+                    <div>Employees: {{ department.employees ?? 'N/A' }}</div>
+                </li>
+            } @empty {
+                <li>no departments</li>
+            }
+        </ul>
+    </div>
+    <div>
+        <p>enter department id</p>
+        <input #departmentIdInput type="number">
+        <button (click)="getDepartmentById(departmentIdInput.valueAsNumber)">find department</button>
+        @if (department) {
+            <strong>{{ department.name }}</strong>
+            <div>Id: {{ department.id }}</div>
+            <div>Employees: {{ department.employees ?? 'N/A' }}</div>
+        } @else {
+
         }
-    </ul>
+    </div>
+    <div>
+        <p>add a new department</p>
+
+        @if(addDepartmentSuccessMessage){
+            <p>{{addDepartmentSuccessMessage}}</p>
+        }
+
+        <input #departmentNameInput type="text" placeholder="department name">
+
+        <button
+            (click)="addDepartment(
+            {
+                name: departmentNameInput.value
+            }
+            )"
+        >add department</button>
+    </div>
 </div>
