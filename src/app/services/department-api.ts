@@ -6,7 +6,7 @@ import { Department } from '../models/department';
 @Service()
 export class DepartmentApi {
     private http = inject(HttpClient);
-    private apiUrl = 'http://localhost:5273/api/employee';
+    private apiUrl = 'http://localhost:5273/api/department';
 
     // get all departments
     getDepartments() {

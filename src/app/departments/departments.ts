@@ -12,12 +12,6 @@ export class Departments {
   private departmentApi = inject(DepartmentApi);
   private cdr = inject(ChangeDetectorRef);
 
-    // employees: Employee[] = [];
-    // employee: Employee | null = null;
-    // responseMessage = '';
-    // responseSuccess = false;
-    // employeeId: number | null = null;
-    // addEmployeeSuccessMessage = ''
     departments: Department[] = [];
     department: Department | null = null;
     responseMessage = '';
@@ -30,6 +24,7 @@ export class Departments {
         this.responseSuccess = response.success;
         this.responseMessage = response.message;
         this.departments = response.data;
+        console.log(response)
         this.cdr.detectChanges();
       },
       error: (error) => {
