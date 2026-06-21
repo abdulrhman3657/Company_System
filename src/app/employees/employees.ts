@@ -10,8 +10,8 @@ import { Employee } from '../models/employee';
 })
 
 export class Employees {
-  private employeeApi = inject(EmployeeApi)
-  private cdr = inject(ChangeDetectorRef)
+  private employeeApi = inject(EmployeeApi);
+  private cdr = inject(ChangeDetectorRef);
 
   employees: Employee[] = [];
   employee: Employee | null = null;
@@ -20,7 +20,7 @@ export class Employees {
   employeeId: number | null = null;
   addEmployeeSuccessMessage = ''
 
-  getEmployees(){
+  getEmployees() {
 
     console.log("getting employees...")
 
@@ -42,7 +42,7 @@ export class Employees {
     })
   }
 
-  getEmployeeById(id: number){
+  getEmployeeById(id: number) {
 
     this.employeeId = id;
 
@@ -63,7 +63,7 @@ export class Employees {
 
   }
 
-  addEmployee(employee: Employee){
+  addEmployee(employee: Employee) {
     this.employeeApi.addEmployee(employee).subscribe({
       next: (response) => {
         this.responseSuccess = response.success;

@@ -1,12 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Service, inject  } from '@angular/core';
 import { Employee } from '../models/employee';
+import { ApiResponse } from '../models/api-response';
 
-interface ApiResponse<T>  {
-    success: boolean;
-    message: string;
-    data: T;
-}
 
 @Service()
 export class EmployeeApi {
