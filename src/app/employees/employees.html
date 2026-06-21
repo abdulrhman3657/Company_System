@@ -30,4 +30,27 @@
             
         }
     </div>
+    <div>
+        <p>add a new employee</p>
+
+        @if(addEmployeeSuccessMessage){
+            <p>{{addEmployeeSuccessMessage}}</p>
+        }
+
+        <input #firstNameInput type="text" placeholder="first name">
+        <input #lastNameInput  type="text" placeholder="last name">
+        <input #salaryInput type="number" placeholder="salary">
+        <input #departmentIdInput type="number" placeholder="department id">
+
+        <button
+            (click)="addEmployee(
+            {
+                firstName: firstNameInput.value,
+                lastName: lastNameInput.value,
+                salary: salaryInput.valueAsNumber,
+                departmentId: departmentIdInput.valueAsNumber
+            } 
+            )"
+        >add employee</button>
+    </div>
 </div>

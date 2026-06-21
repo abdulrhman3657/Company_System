@@ -23,4 +23,9 @@ export class EmployeeApi {
     getEmployeeById(id: number) {
         return this.http.get<ApiResponse<Employee>>(`${this.apiUrl}/${id}`);
     }
+
+    // add a new Employee
+    addEmployee(employee: Employee){
+        return this.http.post<ApiResponse<Employee>>(this.apiUrl, employee);
+    }
 }
