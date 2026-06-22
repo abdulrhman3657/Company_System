@@ -1,6 +1,11 @@
 <nav>
     <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-    <a routerLink="/auth" routerLinkActive="active">Login / Register</a>
+    
+    @if (isLoggedIn()) {
+        <button type="button" (click)="logout()">Logout</button>
+    } @else {
+        <a routerLink="/auth" routerLinkActive="active">Login / Register</a>
+    }
     <a routerLink="/employees" routerLinkActive="active">Employees</a>
     <a routerLink="/departments" routerLinkActive="active">Departments</a>
 </nav>

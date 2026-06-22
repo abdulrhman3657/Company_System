@@ -12,6 +12,7 @@ export class AuthApi {
     private tokenKey = 'access_token';
 
     register(request: AuthRequest) {
+        // post /api/auth/register, body: { username, password }
         return this.http.post<ApiResponse<User>>(`${this.apiUrl}/register`, request);
     }
 
@@ -31,5 +32,13 @@ export class AuthApi {
 
     logout() {
         localStorage.removeItem(this.tokenKey);
+    }
+
+    getToken() {
+        return localStorage.getItem(this.tokenKey);
+    }
+
+    isLoggedIn() {
+        return this.getToken() !== null;
     }
 }

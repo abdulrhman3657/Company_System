@@ -38,3 +38,22 @@ nav a.active {
         text-align: center;
     }
 }
+
+nav button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #dc2626;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background: #b91c1c;
+}
+
+nav button:focus {
+  outline: 2px solid #fecaca;
+  outline-offset: 2px;
+}

@@ -23,4 +23,8 @@
   Switch to {{ mode === 'login' ? 'Register' : 'Login' }}
 </button>
 
-<p>{{ message }}</p>
+@if (message) {
+  <p class="message" [class.success]="messageType === 'success'" [class.error]="messageType === 'error'" >
+    {{message}}
+  </p>
+}

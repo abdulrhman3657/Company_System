@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AuthApi } from './services/auth-api';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,15 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 
 export class App {
-  
+  private authApi = inject(AuthApi);
+  private router = inject(Router);
+
+  isLoggedIn() {
+    return this.authApi.isLoggedIn();
+  }
+
+  logout() {
+    this.authApi.logout();
+    this.router.navigate(['/auth']);
+  }
 }

@@ -62,3 +62,28 @@ p {
   text-align: center;
   color: #374151;
 }
+
+.message {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.message.success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.message.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

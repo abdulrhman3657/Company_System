@@ -1,5 +1,6 @@
 import { HttpInterceptorFn } from "@angular/common/http";
 
+// every HttpClient request passes through this function
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const token = localStorage.getItem('access_token');
 
