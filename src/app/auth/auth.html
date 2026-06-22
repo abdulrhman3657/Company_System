@@ -1,0 +1,26 @@
+<h1>{{ mode === 'login' ? 'Login' : 'Register' }}</h1>
+
+<form (ngSubmit)="submit()">
+  <input
+    name="username"
+    [(ngModel)]="username"
+    placeholder="Username"
+  />
+
+  <input
+    name="password"
+    [(ngModel)]="password"
+    type="password"
+    placeholder="Password"
+  />
+
+  <button type="submit">
+    {{ mode === 'login' ? 'Login' : 'Register' }}
+  </button>
+</form>
+
+<button type="button" (click)="mode = mode === 'login' ? 'register' : 'login'">
+  Switch to {{ mode === 'login' ? 'Register' : 'Login' }}
+</button>
+
+<p>{{ message }}</p>
