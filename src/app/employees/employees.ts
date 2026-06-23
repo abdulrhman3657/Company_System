@@ -29,7 +29,7 @@ export class Employees {
         // responseSuccess is true
         this.responseSuccess = response.success;
         this.responseMessage = response.message;
-        this.employees = response.data;
+        this.employees = response.data ?? [];
         this.cdr.detectChanges();
         console.log(response);
       },

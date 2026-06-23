@@ -1,8 +1,8 @@
 export interface User {
-    Id: number;
-    Username: string;
-    PasswordHash: string;
-    Role: string;
-    RefreshToken: string;
-    RefreshTokenExpiryTime: Date; // ?
+    id: string;
+    username: string;
+    passwordHash: string;
+    role: string;
+    refreshToken: string | null;
+    refreshTokenExpiryTime: string | null;
 }

@@ -25,7 +25,7 @@ export class Departments {
       next: (response) => {
         this.responseSuccess = response.success;
         this.responseMessage = response.message;
-        this.departments = response.data;
+        this.departments = response.data ?? [];
         console.log(response)
         this.cdr.detectChanges();
       },
