@@ -7,7 +7,20 @@
                 <li>
                     <strong>{{ department.name }}</strong>
                     <div>Id: {{ department.id }}</div>
-                    <div>Employees: {{ department.employees ?? 'N/A' }}</div>
+                    <div>
+  <strong>Employees:</strong>
+
+  <ul>
+    @for (employee of department.employees; track employee.id) {
+      <li>
+        {{ employee.firstName }} {{ employee.lastName }}
+        - Salary: {{ employee.salary }}
+      </li>
+    } @empty {
+      <li>no employees</li>
+    }
+  </ul>
+</div>
                 </li>
             } @empty {
                 <li>no departments</li>
