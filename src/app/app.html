@@ -1,13 +1,52 @@
-<nav>
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-    
-    @if (isLoggedIn()) {
-        <button type="button" (click)="logout()">Logout</button>
-    } @else {
-        <a routerLink="/auth" routerLinkActive="active">Login / Register</a>
-    }
-    <a routerLink="/employees" routerLinkActive="active">Employees</a>
-    <a routerLink="/departments" routerLinkActive="active">Departments</a>
-</nav>
+<div class="min-h-screen bg-slate-50 text-slate-900">
+  <header class="border-b border-slate-200 bg-white">
+    <nav class="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center">
+      <a
+        class="rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-blue-700"
+        routerLink="/"
+        routerLinkActive="border-blue-600 bg-blue-600 !text-white shadow-sm"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Home
+      </a>
 
-<router-outlet></router-outlet>
+      @if (isLoggedIn()) {
+        <button
+          class="rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
+          type="button"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      } @else {
+        <a
+          class="rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-blue-700"
+          routerLink="/auth"
+          routerLinkActive="border-blue-600 bg-blue-600 !text-white shadow-sm"
+        >
+          Login / Register
+        </a>
+      }
+
+      <a
+        class="rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-blue-700"
+        routerLink="/employees"
+        routerLinkActive="border-blue-600 bg-blue-600 !text-white shadow-sm"
+      >
+        Employees
+      </a>
+
+      <a
+        class="rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-blue-700"
+        routerLink="/departments"
+        routerLinkActive="border-blue-600 bg-blue-600 !text-white shadow-sm"
+      >
+        Departments
+      </a>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-8">
+    <router-outlet></router-outlet>
+  </main>
+</div>
