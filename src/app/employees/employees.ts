@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { EmployeeApi } from '../services/employee-api';
 import { Employee } from '../models/employee';
 
@@ -9,7 +9,7 @@ import { Employee } from '../models/employee';
   styleUrl: './employees.css',
 })
 
-export class Employees {
+export class Employees implements OnInit {
   private employeeApi = inject(EmployeeApi);
   private cdr = inject(ChangeDetectorRef);
 
@@ -19,6 +19,10 @@ export class Employees {
   responseSuccess = false;
   employeeId: number | null = null;
   addEmployeeSuccessMessage = ''
+
+  ngOnInit() {
+    this.getEmployees();
+  }
 
   getEmployees() {
 

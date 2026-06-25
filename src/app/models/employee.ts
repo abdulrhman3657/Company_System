@@ -6,5 +6,6 @@ export interface Employee {
     lastName: string;
     salary: number;
     departmentId?: number | null;
+    departmentName?: string;
     department?: Department | null;
 }

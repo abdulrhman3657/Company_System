@@ -1,106 +1,61 @@
-<button
-  class="mb-6 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-  (click)="getEmployees()"
->
-  get employees
-</button>
+<section class="rounded-lg border border-slate-200 bg-white shadow-sm">
+  <div class="flex items-center justify-between border-b border-slate-200 bg-slate-800 px-5 py-4 text-white">
+    <h1 class="text-lg font-semibold">Manage Employees</h1>
 
-<div class="grid gap-5 lg:grid-cols-2">
-  <section class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-    <ul class="grid gap-3">
-      @for (employee of employees; track employee.id) {
-        <li class="rounded-lg border border-slate-200 bg-slate-50 p-4 leading-7">
-          <strong class="mb-1 block text-base font-semibold text-slate-950">
-            {{ employee.firstName }} {{ employee.lastName }}
-          </strong>
-          <div class="text-sm text-slate-600">Id: {{ employee.id }}</div>
-          <div class="text-sm text-slate-600">Department Id: {{ employee.departmentId ?? 'N/A' }}</div>
-          <div class="text-sm text-slate-600">Department: {{ employee.department?.name ?? 'N/A' }}</div>
-          <div class="text-sm text-slate-600">Salary: {{ employee.salary }}</div>
-        </li>
-      } @empty {
-        <li class="text-sm text-slate-500">no employees</li>
-      }
-    </ul>
-  </section>
+    <button
+      class="rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+      type="button"
+    >
+      Add Employee
+    </button>
+  </div>
 
-  <section class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-    <p class="mb-3 font-semibold text-slate-900">enter employee id</p>
-    <div class="flex flex-col gap-2 sm:flex-row">
-      <input
-        class="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-        #employeeIdInput
-        type="number"
-      >
-      <button
-        class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-        (click)="getEmployeeById(employeeIdInput.valueAsNumber)"
-      >
-        find employee
-      </button>
-    </div>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-slate-200 text-sm">
+      <thead class="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
+      <tr>
+        <th class="px-5 py-3">Name</th>
+        <th class="px-5 py-3">Department</th>
+        <th class="px-5 py-3">Salary</th>
+        <th class="px-5 py-3 text-right">Actions</th>
+      </tr>
+      </thead>
 
-    @if (employee) {
-      <div class="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4 leading-7">
-        <strong class="mb-1 block text-base font-semibold text-slate-950">
-          {{ employee.firstName }} {{ employee.lastName }}
-        </strong>
-        <div class="text-sm text-slate-600">Id: {{ employee.id }}</div>
-        <div class="text-sm text-slate-600">Department Id: {{ employee.departmentId ?? 'N/A' }}</div>
-        <div class="text-sm text-slate-600">Department: {{ employee.department?.name ?? 'N/A' }}</div>
-        <div class="text-sm text-slate-600">Salary: {{ employee.salary }}</div>
-      </div>
-    }
-  </section>
+      <tbody class="divide-y divide-slate-100 bg-white">
+        @for (employee of employees; track employee.id) {
+          <tr class="hover:bg-slate-50">
+            <td class="px-5 py-4 font-medium text-slate-900">
+              {{ employee.firstName }} {{ employee.lastName }}
+            </td>
 
-  <section class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm lg:col-span-2">
-    <p class="mb-3 font-semibold text-slate-900">add a new employee</p>
+            <td class="px-5 py-4 text-slate-600">
+              {{ employee.departmentName || 'N/A' }}
+            </td>
 
-    @if(addEmployeeSuccessMessage){
-      <p class="mb-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800">
-        {{addEmployeeSuccessMessage}}
-      </p>
-    }
+            <td class="px-5 py-4 text-slate-600">
+              {{ employee.salary }}
+            </td>
 
-    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
-      <input
-        class="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-        #firstNameInput
-        type="text"
-        placeholder="first name"
-      >
-      <input
-        class="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-        #lastNameInput
-        type="text"
-        placeholder="last name"
-      >
-      <input
-        class="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-        #salaryInput
-        type="number"
-        placeholder="salary"
-      >
-      <input
-        class="rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-        #departmentIdInput
-        type="number"
-        placeholder="department id"
-      >
+            <td class="px-5 py-4 text-right">
+              <button class="mr-2 text-sm font-semibold text-amber-600 hover:text-amber-700">
+                Edit
+              </button>
 
-      <button
-        class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-        (click)="addEmployee(
-        {
-          firstName: firstNameInput.value,
-          lastName: lastNameInput.value,
-          salary: salaryInput.valueAsNumber,
-          departmentId: departmentIdInput.valueAsNumber
+              <button class="text-sm font-semibold text-red-600 hover:text-red-700">
+                Delete
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="px-5 py-6 text-center text-slate-500" colspan="4">
+              no employees
+            </td>
+          </tr>
         }
-        )"
-      >
-        add employee
-      </button>
-    </div>
-  </section>
-</div>
+      </tbody>
+
+    </table>
+  </div>
+
+</section>

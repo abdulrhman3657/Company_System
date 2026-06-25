@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { DepartmentApi } from '../services/department-api';
 import { Department } from '../models/department';
 
@@ -9,16 +9,20 @@ import { Department } from '../models/department';
   styleUrl: './departments.css',
 })
 
-export class Departments {
+export class Departments implements OnInit {
   private departmentApi = inject(DepartmentApi);
   private cdr = inject(ChangeDetectorRef);
 
-    departments: Department[] = [];
-    department: Department | null = null;
-    responseMessage = '';
-    responseSuccess = false;
-    departmentId: number | null = null;
-    addDepartmentSuccessMessage = '';
+  departments: Department[] = [];
+  department: Department | null = null;
+  responseMessage = '';
+  responseSuccess = false;
+  departmentId: number | null = null;
+  addDepartmentSuccessMessage = '';
+
+  ngOnInit() {
+    this.getDepartments();
+  }
 
   getDepartments() {
     this.departmentApi.getDepartments().subscribe({

@@ -45,9 +45,7 @@ export class Auth {
           this.isLoading = false;
           this.cdr.detectChanges();
 
-          // setTimeout(() => {
-          //   this.router.navigate(['/']);
-          // }, 800)
+          this.router.navigate(['/']);
 
         },
         error: (error) => {
