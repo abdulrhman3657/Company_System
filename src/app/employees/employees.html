@@ -10,6 +10,61 @@
     </button>
   </div>
 
+  @if (editingEmployee) {
+    <form class="grid gap-4 border-b border-slate-200 bg-slate-50 p-5 md:grid-cols-5" (ngSubmit)="saveEdit()">
+      <input
+        class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+        name="firstName"
+        [(ngModel)]="editingEmployee.firstName"
+        placeholder="First name"
+        required
+      />
+
+      <input
+        class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+        name="lastName"
+        [(ngModel)]="editingEmployee.lastName"
+        placeholder="Last name"
+        required
+      />
+
+      <input
+        class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+        name="salary"
+        [(ngModel)]="editingEmployee.salary"
+        type="number"
+        placeholder="Salary"
+        required
+      />
+
+      <input
+        class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+        name="departmentId"
+        [(ngModel)]="editingEmployee.departmentId"
+        type="number"
+        placeholder="Department ID"
+        required
+      />
+
+      <div class="flex gap-2">
+        <button
+          class="flex-1 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+          type="submit"
+        >
+          Save
+        </button>
+
+        <button
+          class="flex-1 rounded-md bg-slate-200 px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-300"
+          type="button"
+          (click)="cancelEdit()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  }
+
   <div class="overflow-x-auto">
     <table class="min-w-full divide-y divide-slate-200 text-sm">
       <thead class="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -37,11 +92,14 @@
             </td>
 
             <td class="px-5 py-4 text-right">
-              <button class="mr-2 text-sm font-semibold text-amber-600 hover:text-amber-700">
+              <button
+                class="mr-2 text-sm font-semibold text-amber-600 hover:text-amber-700"
+                (click)="startEdit(employee)"
+              >
                 Edit
               </button>
 
-              <button class="text-sm font-semibold text-red-600 hover:text-red-700">
+              <button class="text-sm font-semibold text-red-600 hover:text-red-700" (click)="deleteEmployee(employee.id!)">
                 Delete
               </button>
             </td>

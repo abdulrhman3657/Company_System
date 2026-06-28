@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { EmployeeApi } from '../services/employee-api';
 import { Employee } from '../models/employee';
 
 @Component({
   selector: 'app-employees',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './employees.html',
   styleUrl: './employees.css',
 })
@@ -82,5 +83,69 @@ export class Employees implements OnInit {
         console.log(error);
       }
     })
+  }
+
+  editingEmployee: Employee | null = null;
+
+  startEdit(employee: Employee) {
+    this.editingEmployee = { ...employee };
+    this.responseMessage = '';
+  }
+
+  cancelEdit() {
+    this.editingEmployee = null;
+  }
+
+  saveEdit() {
+    if (this.editingEmployee?.id == null) {
+      return;
+    }
+
+    this.editEmployee(this.editingEmployee.id, this.editingEmployee);
+  }
+
+  editEmployee(id: number, employee: Employee) {
+
+    this.employeeId = id;
+
+    this.employeeApi.editEmployee(id, employee).subscribe({
+      next: (response) => {
+        this.responseSuccess = response.success;
+        this.responseMessage = response.message;
+        this.employee = response.data;
+        this.editingEmployee = null;
+
+        this.getEmployees();
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        this.responseSuccess = error.error.success;
+        this.responseMessage = error.error.message;
+      }
+    })
+  }
+
+  deleteEmployee(id: number) {
+
+    this.employeeId = id;
+
+    this.employeeApi.deleteEmployee(id).subscribe({
+      next: (response) => {
+        this.responseSuccess = response.success;
+        this.responseMessage = response.message;
+
+        this.employees = this.employees.filter(employee => employee.id !== id);
+
+        if (this.employee?.id === id) {
+          this.employee = null;
+        }
+
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        this.responseSuccess = error.error.success;
+        this.responseMessage = error.error.message;
+      }
+    });
   }
 }

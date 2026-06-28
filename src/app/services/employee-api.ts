@@ -24,4 +24,12 @@ export class EmployeeApi {
     addEmployee(employee: Employee){
         return this.http.post<ApiResponse<Employee>>(this.apiUrl, employee);
     }
+
+    editEmployee(id: number, employee: Employee){
+        return this.http.put<ApiResponse<Employee>>(`${this.apiUrl}/${id}`, employee);
+    }
+
+    deleteEmployee(id: number){
+        return this.http.delete<ApiResponse<Employee>>(`${this.apiUrl}/${id}`)
+    }
 }
