@@ -20,6 +20,13 @@ export class Employees implements OnInit {
   responseSuccess = false;
   employeeId: number | null = null;
   addEmployeeSuccessMessage = ''
+  showAddForm = false;
+  newEmployee: Employee = {
+    firstName: '',
+    lastName: '',
+    salary: 0,
+    departmentId: null
+  };
 
   ngOnInit() {
     this.getEmployees();
@@ -74,6 +81,9 @@ export class Employees implements OnInit {
         this.responseSuccess = response.success;
         this.responseMessage = response.message;
         this.addEmployeeSuccessMessage = response.message;
+        this.showAddForm = false;
+        this.resetNewEmployee();
+        this.getEmployees();
         this.cdr.detectChanges();
         console.log(response);
       },
@@ -87,8 +97,37 @@ export class Employees implements OnInit {
 
   editingEmployee: Employee | null = null;
 
+  startAdd() {
+    this.showAddForm = true;
+    this.editingEmployee = null;
+    this.responseMessage = '';
+  }
+
+  cancelAdd() {
+    this.showAddForm = false;
+    this.resetNewEmployee();
+  }
+
+  resetNewEmployee() {
+    this.newEmployee = {
+      firstName: '',
+      lastName: '',
+      salary: 0,
+      departmentId: null
+    };
+  }
+
+  saveAdd() {
+    if (this.newEmployee.departmentId == null) {
+      return;
+    }
+
+    this.addEmployee(this.newEmployee);
+  }
+
   startEdit(employee: Employee) {
     this.editingEmployee = { ...employee };
+    this.showAddForm = false;
     this.responseMessage = '';
   }
 

@@ -5,10 +5,66 @@
     <button
       class="rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
       type="button"
+      (click)="startAdd()"
     >
       Add Employee
     </button>
   </div>
+
+  @if (showAddForm) {
+    <form class="grid gap-4 border-b border-slate-200 bg-slate-50 p-5 md:grid-cols-5" (ngSubmit)="saveAdd()">
+      <input
+        class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+        name="addFirstName"
+        [(ngModel)]="newEmployee.firstName"
+        placeholder="First name"
+        required
+      />
+
+      <input
+        class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+        name="addLastName"
+        [(ngModel)]="newEmployee.lastName"
+        placeholder="Last name"
+        required
+      />
+
+      <input
+        class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+        name="addSalary"
+        [(ngModel)]="newEmployee.salary"
+        type="number"
+        placeholder="Salary"
+        required
+      />
+
+      <input
+        class="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+        name="addDepartmentId"
+        [(ngModel)]="newEmployee.departmentId"
+        type="number"
+        placeholder="Department ID"
+        required
+      />
+
+      <div class="flex gap-2">
+        <button
+          class="flex-1 rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+          type="submit"
+        >
+          Save
+        </button>
+
+        <button
+          class="flex-1 rounded-md bg-slate-200 px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-300"
+          type="button"
+          (click)="cancelAdd()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  }
 
   @if (editingEmployee) {
     <form class="grid gap-4 border-b border-slate-200 bg-slate-50 p-5 md:grid-cols-5" (ngSubmit)="saveEdit()">
