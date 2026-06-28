@@ -22,4 +22,12 @@ export class DepartmentApi {
     addDepartment(department: Department){
         return this.http.post<ApiResponse<Department>>(this.apiUrl, department);
     }
+
+    editDepartment(id: number, department: Department) {
+        return this.http.put<ApiResponse<Department>>(`${this.apiUrl}/${id}`, department);
+    }
+
+    deleteDepartment(id: number) {
+        return this.http.delete<ApiResponse<Department>>(`${this.apiUrl}/${id}`);
+    }
 }
