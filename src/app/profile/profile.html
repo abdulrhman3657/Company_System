@@ -1,0 +1,85 @@
+<section class="max-w-xl rounded-lg border border-slate-200 bg-white shadow-sm">
+  <div class="border-b border-slate-200 bg-slate-800 px-5 py-4 text-white">
+    <h1 class="text-lg font-semibold">Profile</h1>
+  </div>
+
+  @if (!isEditing) {
+    <div class="grid gap-4 p-5">
+      <div>
+        <p class="text-sm font-medium text-slate-500">Username</p>
+        <p class="text-base font-semibold text-slate-900">{{ username }}</p>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium text-slate-500">Role</p>
+        <p class="text-base font-semibold text-slate-900">{{ role }}</p>
+      </div>
+
+      <div class="flex gap-2">
+        <button
+          class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+          type="button"
+          (click)="startEdit()"
+        >
+          Edit Username
+        </button>
+
+        <button
+          class="rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+          type="button"
+          (click)="deleteAccount()"
+        >
+          Delete Account
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (isEditing) {
+    <form class="grid gap-4 p-5" (ngSubmit)="saveProfile()">
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">
+          Username
+        </label>
+
+        <input
+          class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+          name="username"
+          [(ngModel)]="editUsername"
+          required
+        />
+      </div>
+
+      <div class="flex gap-2">
+        <button
+          class="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+          type="submit"
+        >
+          Save
+        </button>
+
+        <button
+          class="rounded-md bg-slate-200 px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-300"
+          type="button"
+          (click)="cancelEdit()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  }
+
+  @if (message) {
+    <p
+      class="mx-5 mb-5 rounded-md border px-3 py-3 text-sm font-medium"
+      [class.border-emerald-200]="messageType === 'success'"
+      [class.bg-emerald-50]="messageType === 'success'"
+      [class.text-emerald-800]="messageType === 'success'"
+      [class.border-red-200]="messageType === 'error'"
+      [class.bg-red-50]="messageType === 'error'"
+      [class.text-red-800]="messageType === 'error'"
+    >
+      {{ message }}
+    </p>
+  }
+</section>

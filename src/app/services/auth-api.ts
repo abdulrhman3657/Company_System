@@ -41,4 +41,30 @@ export class AuthApi {
     isLoggedIn() {
         return this.getToken() !== null;
     }
+
+    editUser(id: string, username: string) {
+        return this.http.put<ApiResponse<User>>(`${this.apiUrl}/${id}`, { username });
+    }
+
+    deleteUser(id: string) {
+        return this.http.delete<ApiResponse<User>>(`${this.apiUrl}/${id}`);
+    }
+
+    // helper method
+    getCurrentUserFromToken() {
+    const token = this.getToken();
+
+    if (!token) {
+        return null;
+    }
+
+    const payload = token.split('.')[1];
+    const decodedPayload = JSON.parse(atob(payload));
+
+    return {
+        id: decodedPayload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'],
+        username: decodedPayload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+        role: decodedPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+    };
+    }
 }
