@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EmployeeApi } from '../services/employee-api';
 import { Employee } from '../models/employee';
+import { DepartmentApi } from '../services/department-api';
+import { Department } from '../models/department';
 
 @Component({
   selector: 'app-employees',
@@ -13,7 +15,9 @@ import { Employee } from '../models/employee';
 export class Employees implements OnInit {
   private employeeApi = inject(EmployeeApi);
   private cdr = inject(ChangeDetectorRef);
+  private departmentApi = inject(DepartmentApi);
 
+  departments: Department[] = [];
   employees: Employee[] = [];
   employee: Employee | null = null;
   responseMessage = '';
@@ -30,6 +34,7 @@ export class Employees implements OnInit {
 
   ngOnInit() {
     this.getEmployees();
+    this.getDepartments();
   }
 
   getEmployees() {
@@ -52,6 +57,19 @@ export class Employees implements OnInit {
         console.log(error);
       }
     })
+  }
+
+  getDepartments(){
+    this.departmentApi.getDepartments().subscribe({
+      next: (response) => {
+        this.departments = response.data ?? [];
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        this.responseSuccess = error.error.success;
+        this.responseMessage = error.error.message;
+      }
+    });
   }
 
   getEmployeeById(id: number) {
