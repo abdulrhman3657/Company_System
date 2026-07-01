@@ -34,7 +34,6 @@ export class Departments implements OnInit {
     this.departmentApi.getDepartments().subscribe({
       next: (response) => {
         this.responseSuccess = response.success;
-        this.responseMessage = response.message;
         this.departments = response.data ?? [];
         console.log(response)
         this.cdr.detectChanges();
@@ -101,9 +100,16 @@ export class Departments implements OnInit {
   }
 
   saveAdd() {
-    if (!this.newDepartment.name.trim()) {
+    const name = this.newDepartment.name.trim();
+
+    if (!name) {
+      this.responseSuccess = false;
+      this.responseMessage = 'Department name is required';
+      this.cdr.detectChanges();
       return;
     }
+
+    this.newDepartment.name = name;
 
     this.addDepartment(this.newDepartment);
   }
@@ -125,6 +131,17 @@ export class Departments implements OnInit {
     if (this.editingDepartment?.id == null) {
       return;
     }
+
+    const name = this.editingDepartment.name.trim();
+
+    if (!name) {
+      this.responseSuccess = false;
+      this.responseMessage = 'Department name is required';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    this.editingDepartment.name = name;
 
     this.editDepartment(this.editingDepartment.id, this.editingDepartment);
   }

@@ -45,7 +45,6 @@ export class Employees implements OnInit {
       next: (response) => {
         // responseSuccess is true
         this.responseSuccess = response.success;
-        this.responseMessage = response.message;
         this.employees = response.data ?? [];
         this.cdr.detectChanges();
         console.log(response);
@@ -136,9 +135,32 @@ export class Employees implements OnInit {
   }
 
   saveAdd() {
-    if (this.newEmployee.departmentId == null) {
+    const firstName = this.newEmployee.firstName.trim();
+    const lastName = this.newEmployee.lastName.trim();
+
+    if(!firstName || !lastName) {
+      this.responseSuccess = false;
+      this.responseMessage = 'First name and last name are required';
+      this.cdr.detectChanges();
       return;
     }
+
+    if (this.newEmployee.salary <= 0) {
+      this.responseSuccess = false;
+      this.responseMessage = 'Salary must be greater than 0';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    if (this.newEmployee.departmentId == null) {
+      this.responseSuccess = false;
+      this.responseMessage = 'Department is required';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    this.newEmployee.firstName = firstName;
+    this.newEmployee.lastName = lastName;
 
     this.addEmployee(this.newEmployee);
   }
@@ -157,6 +179,33 @@ export class Employees implements OnInit {
     if (this.editingEmployee?.id == null) {
       return;
     }
+
+    const firstName = this.editingEmployee.firstName.trim();
+    const lastName = this.editingEmployee.lastName.trim();
+
+    if (!firstName || !lastName) {
+      this.responseSuccess = false;
+      this.responseMessage = 'First name and last name are required';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    if (this.editingEmployee.salary <= 0) {
+      this.responseSuccess = false;
+      this.responseMessage = 'Salary must be greater than 0';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    if (this.editingEmployee.departmentId == null) {
+      this.responseSuccess = false;
+      this.responseMessage = 'Department is required';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    this.editingEmployee.firstName = firstName;
+    this.editingEmployee.lastName = lastName;
 
     this.editEmployee(this.editingEmployee.id, this.editingEmployee);
   }
